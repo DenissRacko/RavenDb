@@ -8,6 +8,7 @@ using Raven.Client;
 using Logic.Domain;
 using Raven.Client.Indexes;
 using Logic.ViewModels;
+using Logic.Indexes;
 
 namespace Logic.Managers
 {
@@ -20,10 +21,14 @@ namespace Logic.Managers
                 {
                     ConnectionStringName = "EmployementMarket"
                 };
-
-                return store.Initialize();             
+                store.Initialize();
+                IndexCreation.CreateIndexes(typeof(Employees_All).Assembly, store);
+                IndexCreation.CreateIndexes(typeof(Companies_All).Assembly, store);
+                IndexCreation.CreateIndexes(typeof(UserAudits_All).Assembly, store);
+                return store;             
             });
 
+ 
         public static IDocumentStore Store => LazyStore.Value;
 #region Company
         public static List<Company> GetAllCompanies()
@@ -31,7 +36,7 @@ namespace Logic.Managers
             var allCompanies = new List<Company>();
             using (var session = Store.OpenSession())
             {
-                allCompanies = session.Query<Company>("Companies/All").Customize(cu => cu.WaitForNonStaleResults()).ToList();
+                allCompanies = session.Query<Company, Companies_All>().Customize(cu => cu.WaitForNonStaleResults()).ToList();
             }
 
             return allCompanies;
@@ -107,7 +112,7 @@ namespace Logic.Managers
             var allEmployees = new List<Employee>();
             using (var session = Store.OpenSession())
             {
-                allEmployees = session.Query<Employee>("Employees/All").Customize(cu => cu.WaitForNonStaleResults()).ToList();
+                allEmployees = session.Query<Employee, Employees_All>().Customize(cu => cu.WaitForNonStaleResults()).ToList();
             }
 
             return allEmployees;
@@ -118,7 +123,7 @@ namespace Logic.Managers
             var allEmployees = new List<Employee>();
             using (var session = Store.OpenSession())
             {
-                allEmployees = session.Query<Employee>("Employees/All")
+                allEmployees = session.Query<Employee, Employees_All>()
                                 .Customize(cu => cu.WaitForNonStaleResults())
                                 .Where(e => e.CompanyId == companyId)
                                 .ToList();
@@ -194,7 +199,7 @@ namespace Logic.Managers
             var user = new UserAudit();
             using (var session = Store.OpenSession())
             {
-                user = session.Query<UserAudit>("UserAudits/All")
+                user = session.Query<UserAudit, UserAudits_All>()
                                 .Customize(cu => cu.WaitForNonStaleResults())
                                 .Where(u => u.CompanyId == companyId)
                                 .FirstOrDefault();
@@ -208,7 +213,7 @@ namespace Logic.Managers
             var user = new UserAudit();
             using (var session = Store.OpenSession())
             {
-                user = session.Query<UserAudit>("UserAudits/All")
+                user = session.Query<UserAudit, UserAudits_All>()
                                 .Customize(cu => cu.WaitForNonStaleResults())
                                 .Where(u => u.SessionId == sessionId)
                                 .FirstOrDefault();
@@ -222,7 +227,7 @@ namespace Logic.Managers
             var user = new UserAudit();
             using (var session = Store.OpenSession())
             {
-                user = session.Query<UserAudit>("UserAudits/All")
+                user = session.Query<UserAudit, UserAudits_All>()
                                 .Customize(cu => cu.WaitForNonStaleResults())
                                 .Where(u => u.CompanyId == model.CompanyId)
                                 .FirstOrDefault();
