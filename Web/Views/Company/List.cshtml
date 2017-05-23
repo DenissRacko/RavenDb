@@ -1,0 +1,43 @@
+﻿@model List<Logic.Domain.Company>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>Company List</h2>
+
+@Html.ActionLink("Create Company", "CreateCompany", "Company", new { @class = "btn btn-primary" })
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>AddressLine</th>
+            <th>Budget</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var company in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink("Details", "Details", "Company", new { id = company.Id }, new { @class = "btn btn-primary" })
+                </td>
+                <td>
+                    @company.Id
+                </td>
+                <td>
+                    @company.Name
+                </td>
+                <td>
+                    @company.AddressLine
+                </td>
+                <td>
+                    @company.Budget
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

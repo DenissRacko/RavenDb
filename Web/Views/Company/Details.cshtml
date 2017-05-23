@@ -1,0 +1,91 @@
+﻿@model Logic.ViewModels.CompanyDetailsModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Company</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddressLine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddressLine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Budget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Budget)
+        </dd>
+
+    </dl>
+</div>
+@if(Model.Employees.Count > 0)
+{
+    <h4>@Model.Name Employees</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Surname
+                </th>
+                <th>
+                    Gender
+                </th>
+                <th>
+                    Age
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var employee in Model.Employees)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink("Details", "Details", "Employee", new { id = employee.Id }, new { @class="btn btn-primary" })
+                    </td>
+                    <td>
+                        @employee.Name
+                    </td>
+                    <td>
+                        @employee.Surname
+                    </td>
+                    <td>
+                        @employee.Gender
+                    </td>
+                    <td>
+                        @employee.Age
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<p>
+    @Html.ActionLink("Add employee", "Create", "Employee", new { companyId = Model.Id }, null) |
+    @Html.ActionLink("Edit", "EditCompany", new {  id = Model.Id  }) |
+    @Html.ActionLink("Delete", "DeleteCompany", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "List")
+</p>
