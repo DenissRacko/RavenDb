@@ -42,8 +42,11 @@ namespace Web.Controllers
 
         public JsonResult ReAdd(EmployeeReAddModel result)
         {
-            result = ContextManager.ReAddEmployees(result);
-
+            if(result.Employees.Count > 0 && result.Employees != null)
+            {
+                result = ContextManager.ReAddEmployees(result);
+            }
+            
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

@@ -160,11 +160,15 @@ namespace Logic.Managers
                     session.Store(company);
                 }
 
-                foreach(var employee in model.employees)
+
+                if(model.employees != null && model.employees.Count > 0)
                 {
-                    employee.CompanyId = company.Id;
-                    session.Store(employee);
-                }
+                    foreach (var employee in model.employees)
+                    {
+                        employee.CompanyId = company.Id;
+                        session.Store(employee);
+                    }
+                }               
 
                 session.SaveChanges();
             }
