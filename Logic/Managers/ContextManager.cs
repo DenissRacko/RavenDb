@@ -9,6 +9,7 @@ using Logic.Domain;
 using Raven.Client.Indexes;
 using Logic.ViewModels;
 using Logic.Indexes;
+using Logic.Models;
 
 namespace Logic.Managers
 {
@@ -105,6 +106,70 @@ namespace Logic.Managers
             }
         }
         #endregion
+
+        public static EmployeeReAddModel ReAddEmployees (EmployeeReAddModel model)
+        {
+            using (var session = Store.OpenSession())
+            {
+                var fromEmployee = session.Load<Employee>("employees/" + model.EmployeeId);
+
+                foreach(var employee in model.Employees)
+                {
+                    employee.CompanyId = fromEmployee.CompanyId;
+                    session.Store(employee);
+                }
+
+                session.SaveChanges();
+            }
+
+            return model;
+        }
+
+        public static NewCompanyModel SaveNewCompany (NewCompanyModel model)
+        {
+            using (var session = Store.OpenSession())
+            {
+                var company = new Company
+                {
+                    Id = model.Id,
+                    Name = model.Name,
+                    Budget = model.Budget,
+                    AddressLine = model.AddressLine,
+                    CompanyId = model.CompanyId,
+                    OwnerId = model.OwnerId,
+                };
+
+                session.Store(company);
+
+                if (model.Login != null && model.Password != null)
+                {
+                    var newCompanyId = company.Id;
+
+                    var userAudit = new UserAudit
+                    {
+                        CompanyId = newCompanyId,
+                        Login = model.Login,
+                        Password = model.Password,
+                        LastAuthorization = DateTime.Now
+                    };
+
+                    session.Store(userAudit);
+
+                    company.OwnerId = userAudit.Id;
+
+                    session.Store(company);
+                }
+
+                foreach(var employee in model.employees)
+                {
+                    employee.CompanyId = company.Id;
+                    session.Store(employee);
+                }
+
+                session.SaveChanges();
+            }
+            return model;
+        }
 
         #region Employee
         public static List<Employee> GetAllEmployees()

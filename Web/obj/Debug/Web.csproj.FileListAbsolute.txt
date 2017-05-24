@@ -162,3 +162,9 @@ C:\Users\User\Source\Repos\RavenDb\Web\bin\ru\System.Web.WebPages.Razor.resource
 C:\Users\User\Source\Repos\RavenDb\Web\obj\Debug\Web.csprojResolveAssemblyReference.cache
 C:\Users\User\Source\Repos\RavenDb\Web\obj\Debug\Web.dll
 C:\Users\User\Source\Repos\RavenDb\Web\obj\Debug\Web.pdb
+C:\Users\User\Source\Repos\RavenDb\Web\bin\System.Net.Http.Formatting.dll
+C:\Users\User\Source\Repos\RavenDb\Web\bin\System.Web.Http.dll
+C:\Users\User\Source\Repos\RavenDb\Web\bin\System.Web.Http.WebHost.dll
+C:\Users\User\Source\Repos\RavenDb\Web\bin\System.Net.Http.Formatting.xml
+C:\Users\User\Source\Repos\RavenDb\Web\bin\System.Web.Http.xml
+C:\Users\User\Source\Repos\RavenDb\Web\bin\System.Web.Http.WebHost.xml

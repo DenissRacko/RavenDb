@@ -19,3 +19,4 @@ C:\Users\User\Source\Repos\RavenDb\Logic\bin\Debug\Raven.Client.Lightweight.pdb
 C:\Users\User\Source\Repos\RavenDb\Logic\bin\Debug\Raven.Client.Lightweight.xml
 C:\Users\User\Source\Repos\RavenDb\Logic\obj\Debug\Logic.dll
 C:\Users\User\Source\Repos\RavenDb\Logic\obj\Debug\Logic.pdb
+C:\Users\User\Source\Repos\RavenDb\Logic\obj\Debug\Logic.csprojResolveAssemblyReference.cache

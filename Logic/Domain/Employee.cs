@@ -14,6 +14,9 @@ namespace Logic.Domain
         [Required]
         public string Name { get; set; }
         public string Surname { get; set; }
+
+        [EmailAddress]
+        public string Email { get; set; }
         public int Age { get; set; }
         public string Gender { get; set; }
         public int CompanyId { get; set; }

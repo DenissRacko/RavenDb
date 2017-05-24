@@ -51,9 +51,50 @@
         </dd>
 
     </dl>
+    <div id="comments-section">      
+        <table id="comments-table" class="table table-striped hidden">
+            <thead>
+                <tr>
+                    <th>
+                        Comment
+                    </th>
+                    <th>
+                        Vote
+                    </th>
+                </tr>                
+            </thead>
+            <tbody></tbody>
+        </table>
+        
+    </div>
+
 </div>
 <p>
     @Html.ActionLink("Edit", "EditEmployee", new { id = Model.Id }) |
     @Html.ActionLink("Delete", "Delete", new { id = Model.Id }) |
     @Html.ActionLink("Back to Company", "Details", "Company", new { id = Model.CompanyId }, null)
 </p>
+
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url: "https://localhost:44321/Home/getEmployeeComments",
+            data: { id:@Model.Id},
+            success: function (comments) {
+                var container = $("#comments-section");
+                if (comments.length > 0) {
+                    var table = $("#comments-table");
+                    var tbody = table.find("tbody").first();
+                    table.removeClass("hidden");
+
+                    jQuery(comments).each(function (index, item) {
+                        tbody.append("<tr><td>" + item.commentary + "</td><td>" + item.vote + "</td></tr>")
+                    });
+                }
+                else {
+                    container.html("Employee left 0 comments")
+                }
+            }
+        });
+    })
+</script>

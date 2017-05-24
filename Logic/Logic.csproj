@@ -55,6 +55,8 @@
     <Compile Include="Indexes\Employees_All.cs" />
     <Compile Include="Indexes\UserAudits_All.cs" />
     <Compile Include="Managers\ContextManager.cs" />
+    <Compile Include="Models\EmployeeReAddModel.cs" />
+    <Compile Include="Models\NewCompanyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CompanyCreateEditModel.cs" />
     <Compile Include="ViewModels\CompanyDetailsModel.cs" />
